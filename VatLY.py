@@ -46,7 +46,7 @@ fig.subplots_adjust(
     hspace=0.2,
     wspace=0.2
 )
-
+fig.canvas.manager.set_window_title('Motion in 1D')
 ax.set_xlim(min(x_vals) - 1, max(x_vals) + 1)
 ax.set_ylim(-1, 1)  # Chạy trên y = 0
 ax.set_xticks(np.arange(np.floor(min(x_vals)), np.ceil(max(x_vals)) + 2, 2))
@@ -95,7 +95,5 @@ def update(frame):
 # Tạo animation
 ani = animation.FuncAnimation(
     fig, update, frames=len(t), init_func=init,
-    blit=True, interval=50, repeat=False
-)
-
+    blit=True, interval=50, repeat=False)
 plt.show()
