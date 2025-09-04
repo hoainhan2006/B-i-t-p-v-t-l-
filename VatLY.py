@@ -36,9 +36,20 @@ x_vals = x(t)
 
 # Tạo figure và axis
 fig, ax = plt.subplots()
+
+# Chỉnh margin, khoảng cách subplot (dù chỉ có 1 plot thì vẫn dùng được)
+fig.subplots_adjust(
+    top=0.88,
+    bottom=0.455,
+    left=0.125,
+    right=0.9,
+    hspace=0.2,
+    wspace=0.2
+)
+
 ax.set_xlim(min(x_vals) - 1, max(x_vals) + 1)
 ax.set_ylim(-1, 1)  # Chạy trên y = 0
-ax.set_xticks(np.arange(np.floor(min(x_vals)), np.ceil(max(x_vals))+2, 2))
+ax.set_xticks(np.arange(np.floor(min(x_vals)), np.ceil(max(x_vals)) + 2, 2))
 
 # Ẩn trục y, chỉ hiển thị trục x
 ax.set_xlabel("Position x(t)")
@@ -46,7 +57,7 @@ ax.get_yaxis().set_visible(False)
 ax.spines['left'].set_visible(False)
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-ax.axhline(y=0, color='black', linewidth=1)  # Đường chạy
+# ax.axhline(y=0, color='black', linewidth=1)  # Đường chạy (bạn có thể bật nếu muốn)
 
 # Đọc ảnh xe đã xử lý (nền trong suốt)
 car_img = mpimg.imread("xe_clean.png")
@@ -60,7 +71,7 @@ time_text = ax.text(0.95, 0.85, '', transform=ax.transAxes,
                     fontsize=12, bbox=dict(boxstyle="round", facecolor="white", alpha=0.7))
 
 # Thêm sau dòng tạo time_text
-position_text = ax.text(0.95, 0.78, '', transform=ax.transAxes,
+position_text = ax.text(0.95, 0.7, '', transform=ax.transAxes,
                         ha='right', va='top',
                         fontsize=12, bbox=dict(boxstyle="round", facecolor="white", alpha=0.7))
 
@@ -76,7 +87,7 @@ def update(frame):
     current_time = t[frame]
     current_x = x_vals[frame]
 
-    car.xybox = (current_x, 0)
+    car.xybox = (current_x, -0.6)
     time_text.set_text(f'Time: {current_time:.2f} s')
     position_text.set_text(f'Position: {current_x:.2f}')
     return car, time_text, position_text
